@@ -27,6 +27,7 @@ const game = new Phaser.Game(config);
 var BetweenPoints = Phaser.Math.Angle.BetweenPoints;
 var SetToAngle = Phaser.Geom.Line.SetToAngle;
 var score = 0;
+var started = false;
 var timer = 0;
 var scoreText;
 var isPlayerJumping = false;
@@ -37,7 +38,7 @@ var red;
 var blue;
 var green;
 var joystick;
-var redButton;
+var button;
 var cursors;
 var dinoMaxInset = 250;
 var dinoMinInset = 150;
@@ -60,10 +61,7 @@ function preload ()
     this.load.image('arcade', 'assets/backgrounds/arcade.png');
 
 
-    this.load.spritesheet("buttons", "assets/backgrounds/buttons.png", {
-        frameWidth: 12,
-        frameHeight: 20
-    });
+    this.load.image("button", "assets/backgrounds/button.png");
 
     this.load.spritesheet("player", "assets/dinos/blinky_dino.png", {
         frameWidth: 24,
@@ -91,6 +89,7 @@ function preload ()
     this.load.image('meteor0', 'assets/meteor/meteor_0.png');
     this.load.image('meteor1', 'assets/meteor/meteor_1.png');
     this.load.image('meteor2', 'assets/meteor/meteor_2.png');
+    this.input.setDefaultCursor('url(assets/curs/claw.cur), pointer');
     
     resize();
 }
@@ -101,6 +100,8 @@ function create ()
     var centerX = this.cameras.main.centerX;
     cursors = this.input.keyboard.createCursorKeys();
 
+    
+
     scoreText = this.add.text(centerX - 100, centerY - 150, 'score: 0', { fontSize: '45px', fill: '#FFF' });
     scoreText.setDepth(12)
     
@@ -110,7 +111,12 @@ function create ()
     bg.displayWidth = 500;bg.displayHeight = 400;
     bg.setPosition(centerX, centerY );
 
-    redButton = this.add.sprite(centerX , centerY + 255, 'buttons');
+    button = this.add.sprite(centerX + 25, centerY, 'button').setInteractive();
+    button.scaleX = 0.05;
+    button.scaleY = 0.05;
+    button.setDepth(12);
+    button.on('pointerdown', startSpawner.bind(this)); 
+    
 
     var arcade = this.add.image(0, 0, 'arcade');
     arcade.setPosition(centerX + 5, centerY + 30);
@@ -128,10 +134,10 @@ function create ()
     platforms.create(centerX - 270, centerY, 'verticle_border');
     platforms.create(centerX + 269, centerY, 'verticle_border');
 
-    joystick = this.add.image(centerX - 200, centerY + 255, 'joystick');
+    joystick = this.add.image(centerX - 5, centerY + 255, 'joystick');
     joystick.setDepth(13);
 
-    green = this.physics.add.sprite(centerX + 25, centerY + 124, 'green');
+    green = this.physics.add.sprite(centerX + 25, centerY + 150, 'green');
     green.setBounce(0.2);
     green.scaleX = 1.5;
     green.scaleY = 1.5;
@@ -139,7 +145,7 @@ function create ()
     green.setDepth(4);
     
 
-    blue = this.physics.add.sprite(centerX - 25, centerY + 125, 'blue');
+    blue = this.physics.add.sprite(centerX - 25, centerY + 150, 'blue');
     blue.setBounce(0.2);
     blue.scaleX = 1.5;
     blue.scaleY = 1.5;
@@ -148,7 +154,7 @@ function create ()
     
 
 
-    red = this.physics.add.sprite(centerX + 10, centerY + 125, 'red');
+    red = this.physics.add.sprite(centerX + 10, centerY + 150, 'red');
     red.setBounce(0.2);
     red.scaleX = 1.5;
     red.scaleY = 1.5;
@@ -156,7 +162,7 @@ function create ()
     red.setDepth(2);
     
 
-    yellow = this.physics.add.sprite(centerX, centerY + 125, 'player');
+    yellow = this.physics.add.sprite(centerX, centerY + 150, 'player');
     yellow.setBounce(0.2);
     yellow.scaleX = 1.5;
     yellow.scaleY = 1.5;
@@ -242,13 +248,16 @@ function create ()
         frameRate: 15,
         repeat: -1
     });
-
-    this.time.addEvent({ delay: Phaser.Math.RND.between(200, 700),  loop: true, callback: onEvent, callbackScope: this });
+    
 }
 
 function update() 
 {
-    timer ++;
+
+    if (started){
+        timer ++;
+    }
+    
 
     if (timer === 100) {
         score ++;
@@ -264,6 +273,13 @@ function update()
     
     playerControls();
 
+}
+
+
+function startSpawner(){
+    this.time.addEvent({ delay: Phaser.Math.RND.between(200, 700),  loop: true, callback: onEvent, callbackScope: this });
+    button.destroy();
+    started = true;
 }
 
 
