@@ -48,6 +48,8 @@ var greenDinoSpeed = Phaser.Math.RND.between(dinoMaxInset,dinoMinInset);
 var blueDinoSpeed = Phaser.Math.RND.between(dinoMaxInset,dinoMinInset);
 var dinos = [];
 var music;
+var deathMusic;
+var menumusic;
 
 function preload ()
 {
@@ -92,6 +94,8 @@ function preload ()
     this.load.image('meteor2', 'assets/meteor/meteor_2.png');
 
     this.load.audio("mainMusic",'assets/sounds/mainMusic.mp3');
+    this.load.audio("menuMusic",'assets/sounds/menu.mp3');
+    this.load.audio("deathMusic",'assets/sounds/death.mp3');
     this.input.setDefaultCursor('url(assets/curs/claw.cur), pointer');
     
     resize();
@@ -185,6 +189,10 @@ function create ()
     dinos.push(blue);
     player = dinos[dinos.length - 1];
 
+    menumusic = this.sound.add('menuMusic');
+    menumusic.setLoop(true);
+    menumusic.play();
+
     
     
     this.anims.create({
@@ -271,6 +279,9 @@ function update()
 
     if (dinos.length === 0){
         music.stop();
+        deathMusic = this.sound.add('deathMusic');
+        deathMusic.setLoop(true);
+        deathMusic.play();
         alert("The Dinos Have Gone Extinct! You survived: " + score + " seconds");
         location.reload();
     }
@@ -284,6 +295,7 @@ function startSpawner(){
     this.time.addEvent({ delay: Phaser.Math.RND.between(200, 700),  loop: true, callback: onEvent, callbackScope: this });
     button.destroy();
     started = true;
+    menumusic.stop();
     music = this.sound.add('mainMusic');
     music.setLoop(true);
     music.play();
