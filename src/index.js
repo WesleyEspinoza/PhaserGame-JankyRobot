@@ -1,5 +1,5 @@
 import 'phaser';
-
+// initial config
 var config = {
     type: Phaser.AUTO,
     parent: 'gameArea',
@@ -23,6 +23,7 @@ var config = {
 
 
 const game = new Phaser.Game(config);
+//all the vars we need
 var BetweenPoints = Phaser.Math.Angle.BetweenPoints;
 var SetToAngle = Phaser.Geom.Line.SetToAngle;
 var score = 0;
@@ -50,6 +51,7 @@ var music;
 var deathMusic;
 var menumusic;
 
+//pre load the images
 function preload ()
 {
     
@@ -100,6 +102,7 @@ function preload ()
     resize();
 }
 
+// create all the objects we need
 function create ()
 {
     var centerY = this.cameras.main.centerY;
@@ -193,7 +196,7 @@ function create ()
     menumusic.play();
 
     
-    
+    //animations
     this.anims.create({
         key: 'yellow_walk',
         frames: this.anims.generateFrameNumbers('player', { start: 8, end: 13 }),
@@ -261,6 +264,7 @@ function create ()
     
 }
 
+
 function update() 
 {
 
@@ -319,7 +323,6 @@ function onEvent(){
     this.physics.add.overlap(yellow, newMeteor, function(){    removeYellow(newMeteor);}, null, this);
     this.physics.add.overlap(platforms, newMeteor, function(){    removeMeteor(newMeteor);}, null, this);
 }
-
 
 function removeMeteor(m){
     m.destroy();
