@@ -54,49 +54,49 @@ var menumusic;
 function preload ()
 {
     
-    this.load.image('background', 'assets/backgrounds/background.png');
+    this.load.image('background', './assets/backgrounds/background.png');
 
-    this.load.image('cloud0', 'assets/backgrounds/cloud_0.png');
-    this.load.image('cloud1', 'assets/backgrounds/cloud_1.png');
-    this.load.image('cloud2', 'assets/backgrounds/cloud_2.png');
-    this.load.image('cloud3', 'assets/backgrounds/cloud_3.png');
+    this.load.image('cloud0', './assets/backgrounds/cloud_0.png');
+    this.load.image('cloud1', './assets/backgrounds/cloud_1.png');
+    this.load.image('cloud2', './assets/backgrounds/cloud_2.png');
+    this.load.image('cloud3', './assets/backgrounds/cloud_3.png');
 
-    this.load.image('arcade', 'assets/backgrounds/arcade.png');
+    this.load.image('arcade', './assets/backgrounds/arcade.png');
 
 
-    this.load.image("button", "assets/backgrounds/button.png");
+    this.load.image("button", "./assets/backgrounds/button.png");
 
-    this.load.spritesheet("player", "assets/dinos/blinky_dino.png", {
+    this.load.spritesheet("player", "./assets/dinos/blinky_dino.png", {
         frameWidth: 24,
         frameHeight: 21
     });
-    this.load.spritesheet("green", "assets/dinos/green_dino.png", {
+    this.load.spritesheet("green", "./assets/dinos/green_dino.png", {
         frameWidth: 24,
         frameHeight: 21
     });
-    this.load.spritesheet("blue", "assets/dinos/blue_dino.png", {
+    this.load.spritesheet("blue", "./assets/dinos/blue_dino.png", {
         frameWidth: 24,
         frameHeight: 21
     });
-    this.load.spritesheet("red", "assets/dinos/red_dino.png", {
+    this.load.spritesheet("red", "./assets/dinos/red_dino.png", {
         frameWidth: 24,
         frameHeight: 21
     });
 
-    this.load.image('joystick', 'assets/backgrounds/joystick.png');
-    this.load.image('joystick_left', 'assets/backgrounds/joystick_left.png');
-    this.load.image('joystick_right', 'assets/backgrounds/joystick_right.png');
-    this.load.image('ground', '/assets/border/border.png');
-    this.load.image('verticle_border', '/assets/border/vert_border.png');
+    this.load.image('joystick', './assets/backgrounds/joystick.png');
+    this.load.image('joystick_left', './assets/backgrounds/joystick_left.png');
+    this.load.image('joystick_right', './assets/backgrounds/joystick_right.png');
+    this.load.image('ground', './assets/border/border.png');
+    this.load.image('verticle_border', './assets/border/vert_border.png');
 
-    this.load.image('meteor0', 'assets/meteor/meteor_0.png');
-    this.load.image('meteor1', 'assets/meteor/meteor_1.png');
-    this.load.image('meteor2', 'assets/meteor/meteor_2.png');
+    this.load.image('meteor0', './assets/meteor/meteor_0.png');
+    this.load.image('meteor1', './assets/meteor/meteor_1.png');
+    this.load.image('meteor2', './assets/meteor/meteor_2.png');
 
-    this.load.audio("mainMusic",'assets/sounds/mainMusic.mp3');
-    this.load.audio("menuMusic",'assets/sounds/menu.mp3');
-    this.load.audio("deathMusic",'assets/sounds/death.mp3');
-    this.input.setDefaultCursor('url(assets/curs/claw.cur), pointer');
+    this.load.audio("mainMusic",'./assets/sounds/mainMusic.mp3');
+    this.load.audio("menuMusic",'./assets/sounds/menu.mp3');
+    this.load.audio("deathMusic",'./assets/sounds/death.mp3');
+    this.input.setDefaultCursor('url(./assets/curs/claw.cur), pointer');
     
     resize();
 }
