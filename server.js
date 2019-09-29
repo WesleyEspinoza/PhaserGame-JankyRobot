@@ -3,8 +3,6 @@ const path = require('path');
 const port = process.env.PORT || 8080;
 const app = express();
 
-var path = require('path');
-
 app.use(express.static(path.resolve('./public')));
 
 // the __dirname is the current directory from where the script is running
