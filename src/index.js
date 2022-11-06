@@ -365,9 +365,47 @@ function removeYellow(m) {
     m.destroy();
 }
 
+function getTouchInput() {	
+	var pointer = scene.input.activePointer;
+	var direction = 0;
+	
+	if (pointer.isDown) {
+		var touchX = pointer.x;
+    	var touchY = pointer.y;
+		
+		let windowWidth = window.innerWidth;
+    		let windowHeight = window.innerHeight;
+    		let windowRatio = windowWidth / windowHeight;
+    		let gameRatio = game.config.width / game.config.height;
+    		if(windowRatio < gameRatio){
+       		 	windowWidth = windowWidth + "px";
+        		windowHeight = (windowWidth / gameRatio) + "px";
+    			}
+    		else{
+        		windowWidth = (windowHeight * gameRatio) + "px";
+        		windowHeight = windowHeight + "px";
+   		 }
+
+         if (touchX < windowWidth *.5 ) {
+            direction = 1;
+         }
+
+         if (touchX > windowWidth *.5 ) {
+            direction = 2;
+         }
+		
+		if (touchY > windowHeight * 0.70) {
+            direction = 0;
+        }
+	}
+
+    return direction;
+}
+
 
 function playerControls(){
-    if (Phaser.Input.Keyboard.JustDown(cursors.up) & isPlayerJumping === false) {
+	
+    if ((Phaser.Input.Keyboard.JustDown(cursors.up) || getTouchInput() === 0) & isPlayerJumping === false) {
         dinos.forEach(function(dino) {
             dino.setVelocityY(-250 + Phaser.Math.RND.between(75,50));
         });
@@ -378,7 +416,7 @@ function playerControls(){
         }
     }
     
-     if (cursors.left.isDown)
+     if (cursors.left.isDown || getTouchInput() == 1)
     {
 
         dinos.forEach(function(dino) {
@@ -406,7 +444,7 @@ function playerControls(){
         joystick.setTexture('joystick_left');
         
     }
-    else if (cursors.right.isDown)
+    else if (cursors.right.isDown || getTouchInput() == 2)
     {
 
         dinos.forEach(function(dino) {
